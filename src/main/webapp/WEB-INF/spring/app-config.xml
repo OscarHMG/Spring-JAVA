@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
+
+
+	<!-- Add data to test the Inventory controller -->
+	
+       <bean id="productManager" class="com.oscarhmg.app.service.SimpleProductManager">
+         <property name="products">
+            <list>
+                <ref bean="product1"/>
+                <ref bean="product2"/>
+                <ref bean="product3"/>
+            </list>
+         </property>
+       </bean>
+
+       <bean id="product1" class="com.oscarhmg.app.domain.Product">
+         <property name="description" value="Lamp"/>
+         <property name="price" value="5.75"/>
+       </bean>
+        
+       <bean id="product2" class="com.oscarhmg.app.domain.Product">
+         <property name="description" value="Table"/>
+         <property name="price" value="75.25"/>
+       </bean>
+
+       <bean id="product3" class="com.oscarhmg.app.domain.Product">
+         <property name="description" value="Chair"/>
+         <property name="price" value="22.79"/>
+       </bean>
+
+	
+	
+	<!-- Scans the classpath of this application for @Components to deploy as beans -->
+	<context:component-scan base-package="com.oscarhmg.app.web" />
+	
+	<!-- Configures the @Controller programming model -->
+	
+	<!-- Indicar la direccion de las vistas -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+        <property name="prefix" value="/WEB-INF/views/"></property>
+        <property name="suffix" value=".jsp"></property> 
+	</bean>
+	
+    <mvc:annotation-driven/>
+</beans>
